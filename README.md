@@ -1,7 +1,7 @@
-To start the Angular project:
+To serve the application:
 
-Navigate to http.  $ng serve --open
+Navigate to feedback_application.  Run "$ng serve --open"
 
 To start the server:
 
-Navigate to hapi-mysql. $node .
+Navigate to feedback_server. Run "$node ."
