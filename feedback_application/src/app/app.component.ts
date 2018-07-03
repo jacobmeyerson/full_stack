@@ -8,17 +8,34 @@ import { ServerService } from './server.service';
 })
 export class AppComponent {
   constructor(private serverService: ServerService) {}
+  yes_responses = 0;
+  no_responses = 0;
 
   onYes() {
     this.serverService.storeResponse('yes')
     .subscribe(
-      (response) => console.log(response)
+      (_response) => {
+        this.updateResp();
+      }
     );
   }
   onNo() {
     this.serverService.storeResponse('no')
       .subscribe(
-        (response) => console.log(response)
+        (response) => console.log(response.text())
+      );
+  }
+
+  updateResp() {
+    this.serverService.getServers()
+      .subscribe(
+        (response) => {
+          const r = JSON.parse(response.text());
+          console.log(response.text());
+          console.log(r.num_response);
+          this.yes_responses = r.num_response;
+        }
+        // console.log(response.text()) // this.yes_responses = parseFloat(response.text())
       );
   }
 }

@@ -1,6 +1,7 @@
 /*
 * Questions:
 * When to disconnect? (connection.end())
+* How to do multiple commands in connection.query? (Haven't been able to get that to work)
 */
 
 'use strict';
@@ -47,22 +48,23 @@ server.route({
     return new Promise(
       (res, rej) => {
         connection.query(
-          'SELECT * FROM People',
-          (e, r, f) => res(r));
+          'SELECT * FROM YesNo WHERE type_response="yes";',
+          (e, r, f) => res(r[0]));
       }
     );
 	}
-
 });
 
 server.route({
   method: 'POST',
   path: '/',
   handler: function(request, h) {
+    var bob = "no";
     return new Promise(
       (res, rej) => {
+        console.log(request.payload);
         connection.query(
-          `INSERT INTO People VALUES(166, "${request.payload}");`,
+          `UPDATE YesNo SET num_response = num_response + 1 WHERE type_response = "${request.payload}";`,//`INSERT INTO People VALUES(166, "${request.payload}");`,
           (e, r, f) => res('Success!')
         );
       }
