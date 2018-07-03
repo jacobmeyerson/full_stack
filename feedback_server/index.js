@@ -43,12 +43,12 @@ connection.connect();
 
 server.route({
 	method: 'GET',
-	path: '/',
+	path: '/{name}',
 	handler: function(request, h) {    
     return new Promise(
       (res, rej) => {
         connection.query(
-          'SELECT * FROM YesNo WHERE type_response="yes";',
+          `SELECT * FROM YesNo WHERE type_response="${request.params.name}";`,
           (e, r, f) => res(r[0]));
       }
     );

@@ -15,7 +15,7 @@ export class AppComponent {
     this.serverService.storeResponse('yes')
     .subscribe(
       (_response) => {
-        this.updateResp();
+        this.updateResp('yes');
       }
     );
   }
@@ -26,13 +26,13 @@ export class AppComponent {
       );
   }
 
-  updateResp() {
-    this.serverService.getServers()
+  updateResp(y_n) {
+    this.serverService.getServers(y_n)
       .subscribe(
         (response) => {
           const r = JSON.parse(response.text());
-          console.log(response.text());
-          console.log(r.num_response);
+          // console.log(response.text());
+          // console.log(r.num_response);
           this.yes_responses = r.num_response;
         }
         // console.log(response.text()) // this.yes_responses = parseFloat(response.text())

@@ -8,8 +8,8 @@ export class ServerService {
     storeResponse(response: string) {
         return this.http.post('http://localhost:3000/', response);
     }
-    getServers() {
+    getServers(y_n) {
         // console.log(`http://localhost:3000/${y_n}`);
-        return this.http.get('http://localhost:3000/');
+        return this.http.get(`http://localhost:3000/${y_n}`);
     }
 }
