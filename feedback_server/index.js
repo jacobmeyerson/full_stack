@@ -26,20 +26,6 @@ const server = Hapi.Server({
 
 connection.connect();
 
-// server.route({
-//   method: 'GET',
-//   path: '/{name}',
-//   handler: (request, h) => {
-//     return new Promise(
-//       (res, rej) => {
-//         connection.query(
-//           `INSERT INTO People VALUES(22, "${request.params.name}");`,
-//           (e, r, f) => res('Added!')
-//         );
-//       }
-//     );
-//   }
-// })
 
 server.route({
 	method: 'GET',
@@ -59,7 +45,7 @@ server.route({
   method: 'POST',
   path: '/',
   handler: function(request, h) {
-    var bob = "no";
+    // var bob = "no";
     return new Promise(
       (res, rej) => {
         console.log(request.payload);

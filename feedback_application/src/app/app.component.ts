@@ -22,7 +22,9 @@ export class AppComponent {
   onNo() {
     this.serverService.storeResponse('no')
       .subscribe(
-        (response) => console.log(response.text())
+        (_response) => {
+          this.updateResp('no');
+        }
       );
   }
 
@@ -31,11 +33,12 @@ export class AppComponent {
       .subscribe(
         (response) => {
           const r = JSON.parse(response.text());
-          // console.log(response.text());
-          // console.log(r.num_response);
-          this.yes_responses = r.num_response;
+          if (y_n === 'yes') {
+            this.yes_responses = r.num_response;
+          } else {
+            this.no_responses = r.num_response;
+          }
         }
-        // console.log(response.text()) // this.yes_responses = parseFloat(response.text())
       );
   }
 }
