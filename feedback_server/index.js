@@ -28,7 +28,7 @@ connection.connect();
 
 server.route({
 	method: 'GET',
-	path: '/{name}',
+	path: '/yes_no/{name}',
 	handler: function(request, h) {    
     return new Promise(
       (res, rej) => {
