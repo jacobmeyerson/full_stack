@@ -41,6 +41,20 @@ server.route({
 });
 
 server.route({
+  method: 'GET',
+  path: '/reset',
+  handler: function(request, h) {    
+    return new Promise(
+      (res, rej) => {
+        connection.query(
+          `UPDATE YesNo SET num_response = 0`,
+          (e, r, f) => res('Success!'));
+      }
+    );
+  }
+});
+
+server.route({
   method: 'POST',
   path: '/',
   handler: function(request, h) {

@@ -11,4 +11,8 @@ export class ResponseService {
     getResponse(y_n) {
         return this.http.get(`http://localhost:3000/yes_no/${y_n}`);
     }
+
+    resetResponse() {
+        return this.http.get('http://localhost:3000/reset');
+    }
 }

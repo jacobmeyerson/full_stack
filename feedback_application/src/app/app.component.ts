@@ -30,6 +30,16 @@ export class AppComponent implements OnInit {
       );
   }
 
+  onReset() {
+    this.responseService.resetResponse()
+      .subscribe(
+        (_response) => {
+          this.updateResp('no');
+          this.updateResp('yes');
+        }
+      );
+  }
+
   updateResp(y_n) {
     this.responseService.getResponse(y_n)
       .subscribe(
