@@ -26,7 +26,6 @@ const server = Hapi.Server({
 
 connection.connect();
 
-
 server.route({
 	method: 'GET',
 	path: '/{name}',
@@ -45,19 +44,16 @@ server.route({
   method: 'POST',
   path: '/',
   handler: function(request, h) {
-    // var bob = "no";
     return new Promise(
       (res, rej) => {
-        console.log(request.payload);
         connection.query(
-          `UPDATE YesNo SET num_response = num_response + 1 WHERE type_response = "${request.payload}";`,//`INSERT INTO People VALUES(166, "${request.payload}");`,
+          `UPDATE YesNo SET num_response = num_response + 1 WHERE type_response = "${request.payload}";`,
           (e, r, f) => res('Success!')
         );
       }
     );
   }
 })
-
 
 const init = async () => {
   await server.start();

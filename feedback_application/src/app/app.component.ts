@@ -1,26 +1,28 @@
-import { Component } from '@angular/core';
-import { ServerService } from './server.service';
+import { Component, OnInit } from '@angular/core';
+import { ResponseService } from './response.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private serverService: ServerService) {}
-  yes_responses = 0;
-  no_responses = 0;
+export class AppComponent implements OnInit {
+  constructor(private responseService: ResponseService) {}
+
+  yes_responses: Number;
+  no_responses: Number;
 
   onYes() {
-    this.serverService.storeResponse('yes')
+    this.responseService.storeResponse('yes')
     .subscribe(
       (_response) => {
         this.updateResp('yes');
       }
     );
   }
+
   onNo() {
-    this.serverService.storeResponse('no')
+    this.responseService.storeResponse('no')
       .subscribe(
         (_response) => {
           this.updateResp('no');
@@ -29,7 +31,7 @@ export class AppComponent {
   }
 
   updateResp(y_n) {
-    this.serverService.getServers(y_n)
+    this.responseService.getResponse(y_n)
       .subscribe(
         (response) => {
           const r = JSON.parse(response.text());
@@ -40,5 +42,10 @@ export class AppComponent {
           }
         }
       );
+  }
+
+  ngOnInit() {
+    this.updateResp('yes');
+    this.updateResp('no');
   }
 }
