@@ -12,16 +12,13 @@ export class LoginComponent {
   constructor(private http: Http) { }
 
   onLogin(username, password) {
-    this.loggedInComplete.emit(true);
-    console.log(username.value, password.value);
-
     const headers = new Headers();
 
-    const base64 = btoa('jmeyerson' + ':' + 'Ampath123');
+    const base64 = btoa(username.value + ':' + password.value);
 
     headers.append('Authorization', 'Basic ' + base64);
 
-    const url = 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/'; // this.getUrl();
+    const url = 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/';
 
     const request = this.http.get(url, {
       headers: headers
@@ -30,18 +27,10 @@ export class LoginComponent {
     request
     .subscribe(
       (response: Response) => {
-        console.log(response.text());
         const data = response.json();
         if (data.authenticated) {
-          console.log('authenticated');
+          this.loggedInComplete.emit(true);
       }
     });
   }
 }
-// OPENMRS_REST_SUFFIX = 'ws/rest/v1/'
-
-// if (this.getOpenmrsServer().endsWith('/')) {
-//   return this.getOpenmrsServer() + AppSettingsService.OPENMRS_REST_SUFFIX;
-
-
-// 'https://ngx.ampath.or.ke/test-amrs/'
