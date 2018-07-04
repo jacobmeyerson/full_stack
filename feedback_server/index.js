@@ -62,12 +62,11 @@ server.route({
       (res, rej) => {
         connection.query(
           `UPDATE YesNo SET num_response = num_response + 1 WHERE type_response = "${request.payload}";`,
-          (e, r, f) => res('Success!')
-        );
+          (e, r, f) => res('Success!'));
       }
     );
   }
-})
+});
 
 const init = async () => {
   await server.start();
