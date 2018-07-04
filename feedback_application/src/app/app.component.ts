@@ -8,7 +8,7 @@ import { ResponseService } from './response.service';
 })
 export class AppComponent implements OnInit {
   constructor(private responseService: ResponseService) {}
-
+  loggedIn = false;
   yes_responses: Number;
   no_responses: Number;
 
