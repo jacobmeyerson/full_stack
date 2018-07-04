@@ -1,10 +1,11 @@
 <div class="container" *ngIf="!loggedIn">
-  Username <Input> <br><br>
-  Password <Input>
+  Username <Input #username> <br><br>
+  Password <Input #password> <br><br>
+  <button (click)="onLogin(username, password)">Submit</button>
 </div>
 
 
-<div class="container">
+<div class="container" *ngIf="loggedIn">
   Do you like Ampath?
   <br><br>
   <button (click)="onYes()">Yes</button>

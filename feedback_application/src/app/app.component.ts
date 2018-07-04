@@ -9,8 +9,14 @@ import { ResponseService } from './response.service';
 export class AppComponent implements OnInit {
   constructor(private responseService: ResponseService) {}
   loggedIn = false;
+
+  username: string;
   yes_responses: Number;
   no_responses: Number;
+
+  onLogin(username, password) {
+    console.log(username.value, password.value);
+  }
 
   onYes() {
     this.responseService.storeResponse('yes')
