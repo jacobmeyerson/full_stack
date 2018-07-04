@@ -7,4 +7,5 @@ Navigate to feedback_application.  Run "$ng serve --open"
 
 To start the server:
 
+Start the local mysql database: Run "$mysql.server start"
 Navigate to feedback_server. Run "$node ."

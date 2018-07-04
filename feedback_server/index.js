@@ -1,6 +1,5 @@
 /*
 * Questions:
-* When to disconnect? (connection.end())
 * How to do multiple commands in connection.query? (Haven't been able to get that to work)
 */
 
@@ -74,3 +73,10 @@ const init = async () => {
 }
 
 init();
+
+// Upon ctrl-c, mysql connection is closed, and server is shut down.
+process.on('SIGINT', () => {
+  connection.end();
+  process.exit();
+});
+
