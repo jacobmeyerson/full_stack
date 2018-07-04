@@ -1,22 +1,11 @@
-<div class="container" *ngIf="!loggedIn">
-  Username <Input #username> <br><br>
-  Password <Input #password> <br><br>
-  <button (click)="onLogin(username, password)">Submit</button>
+<div class="container">
+  <app-login
+    (loggedInComplete)="loggedIn=true"
+    *ngIf="!loggedIn">
+  </app-login>
+  <app-survey *ngIf="loggedIn"></app-survey>  
 </div>
 
 
-<div class="container" *ngIf="loggedIn">
-  Do you like Ampath?
-  <br><br>
-  <button (click)="onYes()">Yes</button>
-  <br><br>
-  <button (click)="onNo()">No</button>
-  <hr>
-  Responses:
-  <ul>
-    <li>Yes: {{ yes_responses }}</li>
-    <li>No: {{ no_responses }}</li>
-  </ul>
-  <hr>
-  <button (click)="onReset()">RESET</button>
-</div>
+
+
