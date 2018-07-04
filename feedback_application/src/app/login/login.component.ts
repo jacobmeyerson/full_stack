@@ -30,6 +30,7 @@ export class LoginComponent {
         const data = response.json();
         if (data.authenticated) {
           this.loggedInComplete.emit(true);
+          this.http.delete(url); // logs out - according to https://wiki.openmrs.org/display/docs/REST+Web+Services+API+For+Clients
       }
     });
   }
