@@ -97,8 +97,9 @@ const init = async () => {
   await server.register({
     plugin: require('hapi-auth-basic')
   });
-  done();
-  
+
+  server.auth.strategy('simple', 'basic', { validate });
+
   server.route({
       method: 'GET',
       path: '/',
@@ -115,15 +116,7 @@ const init = async () => {
   console.log('Server is running');
 }
 
-const done = () => {
-  console.log('done');
-  server.auth.strategy('simple', 'basic', { validate });
-}
-
-
 init();
-
-console.log('init');
 
 // Upon ctrl-c, mysql connection is closed, and server is shut down.
 process.on('SIGINT', () => {
