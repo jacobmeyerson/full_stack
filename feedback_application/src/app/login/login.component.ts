@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { Headers, Http, Response } from '@angular/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   @Output() loggedInComplete = new EventEmitter<boolean>();
 
   constructor(private http: Http) { }
@@ -34,5 +34,20 @@ export class LoginComponent {
             headers: headers}); // logs out - according to https://wiki.openmrs.org/display/docs/REST+Web+Services+API+For+Clients
       }
     });
+  }
+
+  ngOnInit () {
+    const headers = new Headers();
+
+    const base64 = btoa('jacob:secret');
+
+    headers.append('Authorization', 'Basic ' + base64);
+
+    const request = this.http.get('http://localhost:3000/reset', {
+      headers: headers
+    });
+    request.subscribe(
+      (response: Response) => console.log('Got it')
+    );
   }
 }

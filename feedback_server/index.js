@@ -10,7 +10,7 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 
 const users = {
-    jo: {
+    jacob: {
         username: 'jon',
         password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
         name: 'John Doe',
@@ -19,6 +19,8 @@ const users = {
 };
 
 const validate = async (request, username, password) => {
+    console.log(request);
+    console.log(username);
 
     const user = users[username];
     if (!user) {
@@ -52,7 +54,9 @@ connection.connect();
 server.route({
 	method: 'GET',
 	path: '/yes_no/{name}',
-	handler: function(request, h) {    
+	handler: function(request, h) {  
+    console.log(request.headers); 
+  
     return new Promise(
       (res, rej) => {
         connection.query(
@@ -66,7 +70,8 @@ server.route({
 server.route({
   method: 'GET',
   path: '/reset',
-  handler: function(request, h) {    
+  handler: function(request, h) {   
+    console.log(request.headers); 
     return new Promise(
       (res, rej) => {
         connection.query(
@@ -81,6 +86,8 @@ server.route({
   method: 'POST',
   path: '/',
   handler: function(request, h) {
+    console.log(request.headers); 
+    console.log('post');
     return new Promise(
       (res, rej) => {
         connection.query(
@@ -99,20 +106,6 @@ const init = async () => {
   });
 
   server.auth.strategy('simple', 'basic', { validate });
-
-  // server.route({
-  //     method: 'GET',
-  //     path: '/',
-  //     options: {
-  //         auth: 'simple'
-  //     },
-  //     handler: function (request, h) {
-
-  //         return 'welcome';
-  //     }
-  // });
-
-
 
   server.auth.default('simple');
 
