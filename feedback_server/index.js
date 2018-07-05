@@ -5,8 +5,32 @@
 
 'use strict';
 
+const Bcrypt = require('bcrypt');
 const Hapi = require('hapi');
 const mysql = require('mysql');
+
+const users = {
+    john: {
+        username: 'john',
+        password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
+        name: 'John Doe',
+        id: '2133d32a'
+    }
+};
+
+const validate = async (request, username, password) => {
+
+    const user = users[username];
+    if (!user) {
+        return { credentials: null, isValid: false };
+    }
+
+    const isValid = await Bcrypt.compare(password, user.password);
+    const credentials = { id: user.id, name: user.name };
+
+    return { isValid, credentials };
+};
+
 
 const connection = mysql.createConnection({
   host     : 'localhost',
@@ -67,12 +91,39 @@ server.route({
   }
 });
 
+
 const init = async () => {
+
+  await server.register({
+    plugin: require('hapi-auth-basic')
+  });
+  done();
+  
+  server.route({
+      method: 'GET',
+      path: '/',
+      options: {
+          auth: 'simple'
+      },
+      handler: function (request, h) {
+
+          return 'welcome';
+      }
+  });
+
   await server.start();
   console.log('Server is running');
 }
 
+const done = () => {
+  console.log('done');
+  server.auth.strategy('simple', 'basic', { validate });
+}
+
+
 init();
+
+console.log('init');
 
 // Upon ctrl-c, mysql connection is closed, and server is shut down.
 process.on('SIGINT', () => {

@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "hapi": "^17.5.2",
+    "hapi-auth-basic": "^5.0.0",
     "mysql": "^2.15.0"
   }
 }
