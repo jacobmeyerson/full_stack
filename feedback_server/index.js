@@ -10,11 +10,11 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 
 const users = {
-    john: {
-        username: 'john',
+    jo: {
+        username: 'jon',
         password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
         name: 'John Doe',
-        id: '2133d32a'
+        id: '233d32a'
     }
 };
 
@@ -100,17 +100,21 @@ const init = async () => {
 
   server.auth.strategy('simple', 'basic', { validate });
 
-  server.route({
-      method: 'GET',
-      path: '/',
-      options: {
-          auth: 'simple'
-      },
-      handler: function (request, h) {
+  // server.route({
+  //     method: 'GET',
+  //     path: '/',
+  //     options: {
+  //         auth: 'simple'
+  //     },
+  //     handler: function (request, h) {
 
-          return 'welcome';
-      }
-  });
+  //         return 'welcome';
+  //     }
+  // });
+
+
+
+  server.auth.default('simple');
 
   await server.start();
   console.log('Server is running');
