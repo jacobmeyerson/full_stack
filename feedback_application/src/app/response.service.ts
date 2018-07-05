@@ -8,14 +8,14 @@ export class ResponseService {
     }
 
     storeResponse(response: string) {
-        return this.http.post('http://localhost:3000/', response); // , {headers: this.headers});
+        return this.http.post('http://localhost:3000/', response);
     }
     getResponse(y_n) {
-        return this.http.get(`http://localhost:3000/yes_no/${y_n}`); // {headers: this.headers});
+        return this.http.get(`http://localhost:3000/yes_no/${y_n}`);
     }
 
     resetResponse() {
-        return this.http.get('http://localhost:3000/reset'); // , {headers: this.headers});
+        return this.http.get('http://localhost:3000/reset');
     }
 
 }

@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit () {
+    // for demonstration purposes only; code copied from onLogin()
     const headers = new Headers();
 
     const base64 = btoa('jacob:secret');
