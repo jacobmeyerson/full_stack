@@ -9,14 +9,17 @@ const Bcrypt = require('bcrypt');
 const Hapi = require('hapi');
 const mysql = require('mysql');
 
+// ---------------------------------------------------
+
 var request = require('request');
 
 var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
 var headers = {'Authorization': "Basic " + authBuffer
 };
 
-function callback (error, response, body) {
-  console.log(response)
+var callback = (error, response, body) => {
+  const data = JSON.parse(response.body);
+  console.log(data.authenticated);
 }
 
 request(
@@ -32,6 +35,9 @@ request(
 //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 //   console.log('body:', body); // Print the HTML for the Google homepage.
 // });
+
+
+// ---------------------------------------------------
 
 
 const users = {
