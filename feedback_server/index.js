@@ -50,29 +50,39 @@ const request = require('request');
 // };
 
 const validate = async (req, username, password) => {
-  // var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
-  // var headers = {'Authorization': "Basic " + authBuffer
+  var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
+  var headers = {'Authorization': "Basic " + authBuffer
+  };
+
+  var parse = (callback) => {
+    // (error, response, body) => {
+    //   console.log('callback');
+    //   const data = JSON.parse(response.body);
+    //   isValid = true;
+    //   callback({isValid: true, credentials: { id: 1, name: 'Bob' }});
+    // }
+    callback({isValid: false, credentials: { id: 1, name: 'Bob' }});
+
+  }
+
+  var callOpenMrs = (callback) => 
+    parse(callback);
+  //{
+    // request(
+    //   { method: 'GET',
+    //     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+    //     headers: headers
+    //   }, parse(callback)
+    // );
   // };
 
-  // var callback = (error, response, body) => {
-  //   console.log('callback');
-  //   const data = JSON.parse(response.body);
-  //   isValid = true;
-  // }
+// TODO: try doing promise in helper file, with an async function, 
+// and altering a field, and seeing if it works out
+  // const isValid = true;
 
-  // request(
-  //   { method: 'GET',
-  //     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
-  //     headers: headers
-  //   }, callback
-  // );
-
-  const isValid = true;
-
-  const credentials = { id: 1, name: 'Bob' };
   return new Promise(
     (res, rej) => {
-        res({isValid, credentials});
+        callOpenMrs(res);
     }
   );
 
