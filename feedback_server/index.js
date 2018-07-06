@@ -1,6 +1,8 @@
 /*
 * Questions:
 * How to do multiple commands in connection.query? (Haven't been able to get that to work)
+* What are credentials used for?
+* Need to do error management?
 */
 
 'use strict';
@@ -10,54 +12,15 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 const request = require('request');
 
-// ---------------------------------------------------
 
-
-// var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
-// var headers = {'Authorization': "Basic " + authBuffer
-// };
-
-// var callback = (error, response, body) => {
-//   const data = JSON.parse(response.body);
-//   console.log(data.authenticated);
-// }
-
-// request(
-//   { method: 'GET',
-//     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
-//     headers: headers
-//   }, callback
-// );
-
-
-// request('http://www.google.com', function (error, response, body) {
-//   console.log('error:', error); // Print the error if one occurred
-//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//   console.log('body:', body); // Print the HTML for the Google homepage.
-// });
-
-
-// ---------------------------------------------------
-
-
-// const users = {
-//     jacob: {
-//         username: 'jon',
-//         password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
-//         name: 'John Doe',
-//         id: '233d32a'
-//     }
-// };
-
-const validate = async (req, username, password) => {
+const validate = async (_req, username, password) => {
   var authBuffer = new Buffer(username + ":" + password).toString("base64");
   var headers = {'Authorization': "Basic " + authBuffer};
 
   return new Promise(
-    (res, rej) => {
-      var callback = (error, response, body) => {
+    (res, _rej) => {
+      var callback = (_error, response, _body) => {
         const data = JSON.parse(response.body);
-        console.log(data.authenticated, 'data');
         res({isValid: data.authenticated, credentials: { id: 1, name: 'Bob' }});
       }
 
