@@ -8,26 +8,26 @@
 const Bcrypt = require('bcrypt');
 const Hapi = require('hapi');
 const mysql = require('mysql');
+const request = require('request');
 
 // ---------------------------------------------------
 
-var request = require('request');
 
-var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
-var headers = {'Authorization': "Basic " + authBuffer
-};
+// var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
+// var headers = {'Authorization': "Basic " + authBuffer
+// };
 
-var callback = (error, response, body) => {
-  const data = JSON.parse(response.body);
-  console.log(data.authenticated);
-}
+// var callback = (error, response, body) => {
+//   const data = JSON.parse(response.body);
+//   console.log(data.authenticated);
+// }
 
-request(
-  { method: 'GET',
-    url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
-    headers: headers
-  }, callback
-);
+// request(
+//   { method: 'GET',
+//     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+//     headers: headers
+//   }, callback
+// );
 
 
 // request('http://www.google.com', function (error, response, body) {
@@ -40,26 +40,44 @@ request(
 // ---------------------------------------------------
 
 
-const users = {
-    jacob: {
-        username: 'jon',
-        password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
-        name: 'John Doe',
-        id: '233d32a'
+// const users = {
+//     jacob: {
+//         username: 'jon',
+//         password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
+//         name: 'John Doe',
+//         id: '233d32a'
+//     }
+// };
+
+const validate = async (req, username, password) => {
+  // var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
+  // var headers = {'Authorization': "Basic " + authBuffer
+  // };
+
+  // var callback = (error, response, body) => {
+  //   console.log('callback');
+  //   const data = JSON.parse(response.body);
+  //   isValid = true;
+  // }
+
+  // request(
+  //   { method: 'GET',
+  //     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+  //     headers: headers
+  //   }, callback
+  // );
+
+  const isValid = true;
+
+  const credentials = { id: 1, name: 'Bob' };
+  return new Promise(
+    (res, rej) => {
+        res({isValid, credentials});
     }
-};
+  );
 
-const validate = async (request, username, password) => {
-    console.log(username, password);
-    const user = users[username];
-    if (!user) {
-        return { credentials: null, isValid: false };
-    }
-
-    const isValid = await Bcrypt.compare(password, user.password);
-    const credentials = { id: user.id, name: user.name };
-
-    return { isValid, credentials };
+  // return({isValid, credentials});
+  // h.authenticated({ isValid, credentials });
 };
 
 
