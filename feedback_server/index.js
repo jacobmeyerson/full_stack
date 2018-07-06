@@ -9,6 +9,31 @@ const Bcrypt = require('bcrypt');
 const Hapi = require('hapi');
 const mysql = require('mysql');
 
+var request = require('request');
+
+var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
+var headers = {'Authorization': "Basic " + authBuffer
+};
+
+function callback (error, response, body) {
+  console.log(response)
+}
+
+request(
+  { method: 'GET',
+    url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+    headers: headers
+  }, callback
+);
+
+
+// request('http://www.google.com', function (error, response, body) {
+//   console.log('error:', error); // Print the error if one occurred
+//   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//   console.log('body:', body); // Print the HTML for the Google homepage.
+// });
+
+
 const users = {
     jacob: {
         username: 'jon',
@@ -19,6 +44,7 @@ const users = {
 };
 
 const validate = async (request, username, password) => {
+    console.log(username, password);
     const user = users[username];
     if (!user) {
         return { credentials: null, isValid: false };
