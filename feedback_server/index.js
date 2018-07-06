@@ -50,44 +50,51 @@ const request = require('request');
 // };
 
 const validate = async (req, username, password) => {
-  var authBuffer = new Buffer('jmeyerson' + ":" + 'Ampath123').toString("base64");
+  var authBuffer = new Buffer('jmeyeson' + ":" + 'Ampath123').toString("base64");
   var headers = {'Authorization': "Basic " + authBuffer
   };
 
-  var parse = (callback) => {
-    // (error, response, body) => {
-    //   console.log('callback');
-    //   const data = JSON.parse(response.body);
-    //   isValid = true;
-    //   callback({isValid: true, credentials: { id: 1, name: 'Bob' }});
-    // }
-    callback({isValid: false, credentials: { id: 1, name: 'Bob' }});
+  // var parse = (callback) => {
+  //   // (error, response, body) => {
+  //   //   console.log('callback');
+  //   //   const data = JSON.parse(response.body);
+  //   //   isValid = true;
+  //   //   callback({isValid: true, credentials: { id: 1, name: 'Bob' }});
+  //   // }
+  //   callback({isValid: false, credentials: { id: 1, name: 'Bob' }});
 
-  }
+  // }
 
-  var callOpenMrs = (callback) => 
-    parse(callback);
-  //{
-    // request(
-    //   { method: 'GET',
-    //     url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
-    //     headers: headers
-    //   }, parse(callback)
-    // );
+  // var callOpenMrs = (callback) => {
+  //   request(
+  //     { method: 'GET',
+  //       url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+  //       headers: headers
+  //     }, parse(callback)
+  //   );
   // };
 
 // TODO: try doing promise in helper file, with an async function, 
 // and altering a field, and seeing if it works out
   // const isValid = true;
 
+
   return new Promise(
     (res, rej) => {
-        callOpenMrs(res);
-    }
-  );
+      var callback = (error, response, body) => {
+        const data = JSON.parse(response.body);
+        console.log(data.authenticated, 'data');
+        res({isValid: data.authenticated, credentials: { id: 1, name: 'Bob' }});
+      }
 
-  // return({isValid, credentials});
-  // h.authenticated({ isValid, credentials });
+      request(
+        { method: 'GET',
+          url: 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/',
+          headers: headers
+        }, callback
+      );
+
+    });
 };
 
 
