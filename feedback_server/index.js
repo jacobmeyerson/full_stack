@@ -5,6 +5,8 @@
 * Need to do error management?
 */
 
+// TODO: how to logout
+
 'use strict';
 
 const Bcrypt = require('bcrypt');
@@ -16,12 +18,12 @@ const request = require('request');
 const validate = async (_req, username, password) => {
   var authBuffer = new Buffer(username + ":" + password).toString("base64");
   var headers = {'Authorization': "Basic " + authBuffer};
-
+  
   return new Promise(
     (res, _rej) => {
       var callback = (_error, response, _body) => {
         const data = JSON.parse(response.body);
-        res({isValid: data.authenticated, credentials: { id: 1, name: 'Bob' }});
+        res({isValid: data.authenticated, credentials: {name: username}});
       }
 
       request(
