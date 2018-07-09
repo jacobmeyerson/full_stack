@@ -17,8 +17,6 @@ export class LoginComponent {
     const base64 = btoa(username.value + ':' + password.value);
     headers.append('Authorization', 'Basic ' + base64);
 
-    this.responseService.setCredentials(headers);
-
     const url = 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/';
     const request = this.http.get(url, {
       headers: headers
@@ -33,10 +31,16 @@ export class LoginComponent {
       }
     });
 
+    // update credentials so responseService can pass backend's authentication
+    this.responseService.setCredentials(headers);
+
   }
 
   onLogout() {
+      // prevent responseService from being able to pass backend's authentication
       this.responseService.setCredentials(new Headers());
+
+      // TODO: need to add http.delete?
   }
 
 
