@@ -17,7 +17,7 @@ export class LoginComponent {
     const base64 = btoa(username.value + ':' + password.value);
     headers.append('Authorization', 'Basic ' + base64);
 
-    this.responseService.storeCredentials(headers);
+    this.responseService.setCredentials(headers);
 
     const url = 'https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/session/';
     const request = this.http.get(url, {
@@ -36,7 +36,7 @@ export class LoginComponent {
   }
 
   onLogout() {
-    console.log('logout');
+      this.responseService.setCredentials(new Headers());
   }
 
 

@@ -9,7 +9,7 @@ export class ResponseService {
     constructor(private http: Http) {
     }
 
-    storeCredentials(header) {
+    setCredentials(header) {
         this.headers = header;
     }
 

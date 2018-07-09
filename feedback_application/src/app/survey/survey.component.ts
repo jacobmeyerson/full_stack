@@ -55,8 +55,8 @@ export class SurveyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.updateResp('yes');
-    this.updateResp('no');
+    // this.updateResp('yes');
+    // this.updateResp('no');
   }
 
 }
