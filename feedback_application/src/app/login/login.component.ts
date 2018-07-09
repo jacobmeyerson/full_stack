@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private http: Http, private responseService: ResponseService) { }
 
   onLogin(username, password) {
-    this.responseService.storeCredentials('bob');
+    this.responseService.storeCredentials(username.value + ':' + password.value);
 
     const headers = new Headers();
 
