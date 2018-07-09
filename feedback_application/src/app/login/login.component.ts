@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { ResponseService } from '../response.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,13 @@ import { Headers, Http, Response } from '@angular/http';
 export class LoginComponent implements OnInit {
   @Output() loggedInComplete = new EventEmitter<boolean>();
 
-  constructor(private http: Http) { }
+  // headers;
+
+  constructor(private http: Http, private responseService: ResponseService) { }
 
   onLogin(username, password) {
+    this.responseService.storeCredentials('bob');
+
     const headers = new Headers();
 
     const base64 = btoa(username.value + ':' + password.value);
@@ -30,8 +35,8 @@ export class LoginComponent implements OnInit {
         const data = response.json();
         if (data.authenticated) {
           this.loggedInComplete.emit(true);
-          this.http.delete(url, {
-            headers: headers}); // logs out - according to https://wiki.openmrs.org/display/docs/REST+Web+Services+API+For+Clients
+          // this.http.delete(url, {
+          //   headers: headers}); // logs out - according to https://wiki.openmrs.org/display/docs/REST+Web+Services+API+For+Clients
       }
     });
   }
@@ -40,7 +45,7 @@ export class LoginComponent implements OnInit {
     // for demonstration purposes only; code copied from onLogin()
     const headers = new Headers();
 
-    const base64 = btoa('jacob:secret');
+    const base64 = btoa('jmeyerson:Ampath123');
 
     headers.append('Authorization', 'Basic ' + base64);
 

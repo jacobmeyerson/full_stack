@@ -1,9 +1,9 @@
 <div class="container">
   <app-login
-    (loggedInComplete)="loggedIn=true"
-    *ngIf="!loggedIn">
+    (loggedInComplete)="loggedIn=true"> <!--*ngIf="!loggedIn"-->
   </app-login>
-  <app-survey *ngIf="loggedIn"></app-survey>  
+  <hr>
+  <app-survey></app-survey>  <!--*ngIf="loggedIn"-->
 </div>
 
 
