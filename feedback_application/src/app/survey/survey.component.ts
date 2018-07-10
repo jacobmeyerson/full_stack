@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseService } from '../response.service';
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.css']
 })
-export class SurveyComponent implements OnInit {
+export class SurveyComponent {
   yes_responses: Number;
   no_responses: Number;
 
-  constructor(private responseService: ResponseService) {}
+  constructor(private responseService: ResponseService, private http: Http) {}
 
   onYes() {
     this.responseService.storeResponse('yes')
@@ -54,9 +55,15 @@ export class SurveyComponent implements OnInit {
       );
   }
 
-  ngOnInit() {
-    // this.updateResp('yes');
-    // this.updateResp('no');
-  }
 
+  onGetLocation() {
+    // const location = this.http.get('https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/location?v=default/');
+
+    this.responseService.getLocation()
+    .subscribe(
+      (response: Response) => {
+        console.log(response.json().results);
+      });
+
+  }
 }

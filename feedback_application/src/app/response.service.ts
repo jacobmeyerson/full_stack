@@ -31,4 +31,9 @@ export class ResponseService {
           });
     }
 
+    getLocation() {
+        return this.http.get('https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/location?v=default', {
+            headers: this.headers
+          });
+    }
 }
