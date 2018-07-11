@@ -5,8 +5,6 @@
 * Need to do error management?
 */
 
-// TODO: how to logout
-
 'use strict';
 
 const Bcrypt = require('bcrypt');
@@ -14,9 +12,8 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 const request = require('request');
 
-var locs = [];
-
-
+var locations = [];
+var programs = [];
 
 const validate = async (_req, username, password) => {
   var authBuffer = new Buffer(username + ":" + password).toString("base64");
@@ -56,14 +53,17 @@ const server = Hapi.Server({
 
 connection.connect();
 
+// called upon boot-up of the app; returns current {locations, programs},
+// and sets local vars locations and programs appropriately as well
 server.route({
   method: 'GET',
-  path: '/getLoc',
-  handler: function(request, h) {   
+  path: '/init',
+  handler: function(request, h) {
     return new Promise(
       (res, rej) => {
-        locs = [1,2,3];
-        res(locs);
+        locations = [11,12,13,14]; // TODO: change - fetch from OpenMRS
+        programs = [15,16,17,18]; // TODO: change - fetch from ETL
+        res({locations, programs});
       }
     );
   }
