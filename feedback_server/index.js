@@ -14,11 +14,14 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 const request = require('request');
 
+var locs = [];
+
+
 
 const validate = async (_req, username, password) => {
   var authBuffer = new Buffer(username + ":" + password).toString("base64");
   var headers = {'Authorization': "Basic " + authBuffer};
-
+ 
   return new Promise(
     (res, _rej) => {
       var callback = (_error, response, _body) => {
@@ -52,6 +55,32 @@ const server = Hapi.Server({
 });
 
 connection.connect();
+
+server.route({
+  method: 'GET',
+  path: '/getLoc',
+  handler: function(request, h) {   
+    return new Promise(
+      (res, rej) => {
+        locs = [1,2,3];
+        res(locs);
+      }
+    );
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/dispLoc',
+  handler: function(request, h) {   
+    return new Promise(
+      (res, rej) => {
+        res(locs);
+      }
+    );
+  }
+});
+
 
 server.route({
 	method: 'GET',
