@@ -1,39 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ResponseService {
-    credentials = 'init';
-    headers;
-
-    constructor(private http: Http) {
-    }
-
-    setCredentials(header) {
-        this.headers = header;
-    }
+    constructor(private http: Http) {}
 
     storeResponse(response: string) {
-        return this.http.post('http://localhost:3000/', response, {
-            headers: this.headers
-          });
+        return this.http.post('http://localhost:8000/', response);
     }
-
     getResponse(y_n) {
-        return this.http.get(`http://localhost:3000/yes_no/${y_n}`, {
-            headers: this.headers
-          });
+        return this.http.get(`http://localhost:8000/response/${y_n}`);
     }
 
     resetResponse() {
-        return this.http.get('http://localhost:3000/reset', {
-            headers: this.headers
-          });
-    }
-
-    getLocation() {
-        return this.http.get('https://ngx.ampath.or.ke/test-amrs/ws/rest/v1/location?v=default', {
-            headers: this.headers
-          });
+        return this.http.get('http://localhost:8000/reset');
     }
 }

@@ -1,11 +1,6 @@
-<div class="container">
-  <app-login
-    (loggedInComplete)="loggedIn=true"> <!--*ngIf="!loggedIn"-->
-  </app-login>
-  <hr>
-  <app-survey></app-survey>  <!--*ngIf="loggedIn"-->
-</div>
-
-
-
+<app-login
+(loggedInComplete)="loggedIn=true"
+*ngIf="!loggedIn">
+</app-login>
+<app-questionnare *ngIf="loggedIn"></app-questionnare>
 

@@ -4,15 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { ResponseService } from './response.service';
+import { SurveyComponent } from './survey.component';
+import { SurveyEditorComponent } from './survey.editor.component';
+import { QuestionnareComponent } from './questionnare/questionnare.component';
 import { LoginComponent } from './login/login.component';
-import { SurveyComponent } from './survey/survey.component';
+import { ResponseService } from './response.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SurveyComponent
+    SurveyComponent,
+    SurveyEditorComponent,
+    QuestionnareComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

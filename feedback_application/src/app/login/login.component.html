@@ -1,7 +1,28 @@
-<div class="container">  
-  Username <Input #username> <br><br>
-  Password <Input #password> <br><br>
-  <button (click)="onLogin(username, password)">Login</button>
+<div> 
   <br><br>
-  <button (click)="onLogout(username, password)">Logout</button>
+  <br><br>
+  <br><br>
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+      <div class="card bg-light">
+      <div class="card-body">
+      <h3>POC Patient Feedback</h3>
+      <br>
+      <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="email" class="form-control" #username aria-describedby="emailHelp" placeholder="Enter Username">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" #password placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-success" (click)="onLogin(username, password)">Submit</button>
+          <br><br>
+        </form>
+      </div>
+      </div>
+  </div>
+
+    <div class="col-md-4"></div>
 </div>

@@ -3,6 +3,9 @@
 * How to do multiple commands in connection.query? (Haven't been able to get that to work)
 * What are credentials used for?
 * Need to do error management?
+
+TODO:
+  Error management (I think)
 */
 
 'use strict';
@@ -12,8 +15,24 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 const request = require('request');
 
+// local storage of fetched locations and programs
 var locations = [];
 var programs = [];
+
+// mock locations and programs for use in development
+const mock_locations = [{uuid:"08feae7c-1352-11df-a1f1-0026b9348838", name:"Location-1"},
+                        {uuid:"00b47ef5-a29b-40a2-a7f4-6851df8d6532", name:"Location-2"},
+                        {uuid:"79fcf21c-8a00-44ba-9555-dde4dd877c4a", name:"Location-3"},
+                        {uuid:"6cd0b441-d644-487c-8466-5820a73f9ce5", name:"Location-4"}];
+const mock_programs = [{department:"CDM", programs:[{uuid:"2b0419c2-275f-4354-8b49-4c97d033ecbb", name:"CDM-Prog-1"},
+                                                    {uuid:"01c73fdc-65ce-4349-abdf-bbc554178b47", name:"CDM-Prog-2"}]},
+                       {department:"HIV", programs:[{uuid:"b5d03983-f24e-4fdc-9ff5-33fc87dee02b", name:"HIV-Prog-1"},
+                                                    {uuid:"8f537fab-0b7f-4b72-a462-042eefad058c", name:"HIV-Prog-2"}]},
+                       {department:"ONCO", programs:[{uuid:"8ce15cad-c7ff-41d9-b55c-5230116c3bf7", name:"ONCO-Prog-1"},
+                                                    {uuid:"27edd245-5205-4e66-82bd-d314c547d16b", name:"ONCO-Prog-2"}]}];
+
+
+
 
 const validate = async (_req, username, password) => {
   var authBuffer = new Buffer(username + ":" + password).toString("base64");
@@ -61,8 +80,8 @@ server.route({
   handler: function(request, h) {
     return new Promise(
       (res, rej) => {
-        locations = [11,12,13,14]; // TODO: change - fetch from OpenMRS
-        programs = [15,16,17,18]; // TODO: change - fetch from ETL
+        locations = mock_locations; // TODO: for production, fetch from OpenMRS
+        programs = mock_programs; // TODO: for production, fetch from ETL
         res({locations, programs});
       }
     );
