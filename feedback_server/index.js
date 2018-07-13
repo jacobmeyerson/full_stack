@@ -17,9 +17,15 @@ const Hapi = require('hapi');
 const mysql = require('mysql');
 const request = require('request');
 
+<<<<<<< HEAD
 // local storage of fetched locations and programs
 var locations = [];
 var programs = [];
+=======
+var locs = [];
+
+
+>>>>>>> parent of 418ddaf... minorly updated
 
 
 // mock locations and programs for use in development
@@ -81,9 +87,14 @@ server.route({
   handler: function(request, h) {   
     return new Promise(
       (res, rej) => {
+<<<<<<< HEAD
         locations = mock_locations; // TODO: for production, fetch from OpenMRS
         programs = mock_programs; // TODO: for production, fetch from ETL
         res({locations, programs});
+=======
+        locs = [1,2,3];
+        res(locs);
+>>>>>>> parent of 418ddaf... minorly updated
       }
     );
   }
