@@ -8,6 +8,8 @@ TODO:
   Error management (I think)
 */
 
+// TODO: how to logout
+
 'use strict';
 
 const Bcrypt = require('bcrypt');
@@ -18,6 +20,7 @@ const request = require('request');
 // local storage of fetched locations and programs
 var locations = [];
 var programs = [];
+
 
 // mock locations and programs for use in development
 const mock_locations = [{uuid:"08feae7c-1352-11df-a1f1-0026b9348838", name:"Location-1"},
@@ -72,12 +75,10 @@ const server = Hapi.Server({
 
 connection.connect();
 
-// called upon boot-up of the app; returns current {locations, programs},
-// and sets local vars locations and programs appropriately as well
 server.route({
   method: 'GET',
-  path: '/init',
-  handler: function(request, h) {
+  path: '/getLoc',
+  handler: function(request, h) {   
     return new Promise(
       (res, rej) => {
         locations = mock_locations; // TODO: for production, fetch from OpenMRS
